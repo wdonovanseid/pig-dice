@@ -12,13 +12,29 @@
     <h1>Pig Dice</h1>
   </div>
   <div class="container">
-    <div id="turn-total"></div>
-    <div id="total-score"></div>
-    <div id="dice-roll"></div>
-    <div id="buttons">
-
+    <h2 id="player1">Player One's Turn</h2>
+    <h2 id="player2">Player Two's Turn</h2>
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div id="turn-total"></div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="card">
+          <div id="total-score"></div>
+        </div>
+      </div>
     </div>
+    <div id="dice-roll"></div>
     <button type="button" id="goFirst" class="btn btn-primary"><em>See who goes first!</em></button>
+    <div id="buttons">
+      <button type="button" id="rollDice" class="btn btn-primary"><em>Roll!</em></button>
+      <button type="button" id="hold" class="btn btn-primary"><em>Hold!</em></button>
+    </div>
+    <div id="victory">
+      <p>Player <span class="playerId"></span> Wins!!!</p>
+    </div>
   </div>
 </body>
 </html>

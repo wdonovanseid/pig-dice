@@ -11,10 +11,14 @@ function rollDice() {
 function endTurn (playerId) {
   if (playerId == 0) {
     playerId = 1;
+    $("h2#player1").hide();
+    $("h2#player2").show();
     $("body").removeClass("background-blue")
     $("body").addClass("background-red");
   } else {
     playerId = 0;
+    $("h2#player2").hide();
+    $("h2#player1").show();
     $("body").removeClass("background-red")
     $("body").addClass("background-blue");
   }
@@ -28,10 +32,12 @@ function goFirst() {
   let asdf = Math.floor(Math.random() * 2 );
   if (asdf == 0) {
     playerGroup.players[0].playerTurn = true;
+    $("h2#player1").show();
     $("body").addClass("background-blue");
     return 0;
   } else {
     playerGroup.players[1].playerTurn = true;
+    $("h2#player2").show();
     $("body").addClass("background-red")
     return 1;
   }
@@ -81,6 +87,7 @@ GroupOfPlayers.prototype.turnTotal = function(id, roll) {
 
 GroupOfPlayers.prototype.hold = function(id) {
   this.players[id].totalScore = this.players[id].totalScore + this.players[id].turnTotal;
+  this.players[id].turnTotal = 0;
 }
 
 // PLAYER CONSTRUCTOR - will hold the players score and if it is their turn. //
@@ -106,29 +113,17 @@ function display(playerGroupToDisplay) {
   asdf2.html(htmlForPlayerScoreTotal);
 }
 
-// SHOW PLAYER FUNCTION //
-
-function showPlayer(playerId) {
-  const player = playerGroup.findPlayer(playerId);
-  $("#turn-total").html(player.turnTotal);
-  $("#total-score").html(player.totalScore);
-  let buttons = $("#buttons");
-  buttons.empty();
-  buttons.append("<button class='rollDice' id=" + player.id + ">Roll!</button>");
-  buttons.append("<button class='hold' id=" + player.id + ">Hold!</button>");
-}
-
 // ATTACH LISTENERS FUNCTION //
 
 function attachListeners() {
   let playerId;
   $("button#goFirst").on("click", function() {
     playerId = goFirst();
+    $("#buttons").show()
     $("button#goFirst").hide();
-    showPlayer(playerId)
     display(playerGroup);
   });
-  $("#buttons").on("click", ".rollDice", function () {
+  $("button#rollDice").on("click", function () {
     let roll = rollDice();
     $("#dice-roll").text(roll);
     let check = playerGroup.turnTotal(playerId, roll);
@@ -137,15 +132,17 @@ function attachListeners() {
     }
     display(playerGroup);
   });
-  $("#buttons").on("click", ".hold", function() {
+  $("button#hold").on("click", function() {
     playerGroup.hold(playerId);
     let player = playerGroup.findPlayer(playerId)
-    if (player.totalScore >= 100) {
-      alert("player one")
-      $("#buttons").hide();
-    }
-    playerId = endTurn(playerId);
     display(playerGroup);
+    if (player.totalScore >= 100) {
+      $("#victory").show();
+      $(".playerId").text(playerId + 1);
+      $("#buttons").hide();
+    } else {
+      playerId = endTurn(playerId);
+    }
   });
 }
 

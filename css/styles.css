@@ -1,8 +1,22 @@
-#rollDice {
+h1 {
+  text-align: center;
+}
+
+h2 {
   display: none;
 }
 
-#hold {
+#buttons {
+  display: none;
+  text-align: center;
+}
+
+#dice-roll {
+  font-size: 50px;
+  text-align: center;
+}
+
+#victory {
   display: none;
 }
 
