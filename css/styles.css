@@ -1,0 +1,15 @@
+#rollDice {
+  display: none;
+}
+
+#hold {
+  display: none;
+}
+
+.background-blue {
+  background-color: lightblue;
+}
+
+.background-red {
+  background-color: red;
+}
