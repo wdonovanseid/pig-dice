@@ -5,6 +5,8 @@ import './css/styles.css';
 import GroupOfPlayers from './group-logic.js';
 import Player from './player-logic.js';
 
+// USER INTERFACE LOGIC //
+
 // ROLL DICE FUNCTION - the dice object is rolled, and a number from 1 through 6 is output randomly each time.//
 
 function rollDice() {
@@ -95,8 +97,6 @@ function attachListeners() {
 }
 
 let playerGroup = new GroupOfPlayers();
-
-// USER INTERFACE LOGIC //
 
 $(document).ready(function() {
   attachListeners();
