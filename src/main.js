@@ -1,4 +1,9 @@
-// Specifications //
+import $ from 'jquery';
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './css/styles.css';
+import GroupOfPlayers from './group-logic.js';
+import Player from './player-logic.js';
 
 // ROLL DICE FUNCTION - the dice object is rolled, and a number from 1 through 6 is output randomly each time.//
 
@@ -13,7 +18,7 @@ function endTurn (playerId) {
     playerId = 1;
     $("h2#player1").hide();
     $("h2#player2").show();
-    $("body").removeClass("background-blue")
+    $("body").removeClass("background-blue");
     $("body").addClass("background-red");
   } else {
     playerId = 0;
@@ -31,71 +36,14 @@ function endTurn (playerId) {
 function goFirst() {
   let asdf = Math.floor(Math.random() * 2 );
   if (asdf == 0) {
-    playerGroup.players[0].playerTurn = true;
     $("h2#player1").show();
     $("body").addClass("background-blue");
     return 0;
   } else {
-    playerGroup.players[1].playerTurn = true;
     $("h2#player2").show();
     $("body").addClass("background-red")
     return 1;
   }
-}
-
-// GROUP OF PLAYERS CONSTRUCTOR - will hold the players. //
-
-function GroupOfPlayers() {
-  this.players = [];
-  this.currentId = 0;
-}
-
-GroupOfPlayers.prototype.addPlayer = function(player) {
-  player.id = this.assignId();
-  this.players.push(player);
-}
-
-GroupOfPlayers.prototype.assignId = function() {
-  this.currentId += 1;
-  return this.currentId;
-}
-
-GroupOfPlayers.prototype.findPlayer = function(id) {
-  for (let i=0; i< this.players.length; i++) {
-    if (this.players[i]) {
-      if (this.players[i].id == id + 1) {
-        return this.players [i];
-      }
-    }
-  };
-  return false;
-}
-
-// TURN TOTAL FUNCTION - the dice object outputs a number, if that number is 2 through 6 it is added to the players turn total. If the dice output is 1, the turn total is 0, and next player turn // 
-
-GroupOfPlayers.prototype.turnTotal = function(id, roll) {
-  if (roll == 1) {
-    this.players[id].turnTotal = 0;
-    return this.players[id].turnTotal;
-  } else {
-    this.players[id].turnTotal = this.players[id].turnTotal + roll;
-    return this.players[id].turnTotal;
-  }
-}
-
-// HOLD FUNCTION - if hold function is True, the players turn total is added to their score, and it is the next players turn. //
-
-GroupOfPlayers.prototype.hold = function(id) {
-  this.players[id].totalScore = this.players[id].totalScore + this.players[id].turnTotal;
-  this.players[id].turnTotal = 0;
-}
-
-// PLAYER CONSTRUCTOR - will hold the players score and if it is their turn. //
-
-function Player() {
-  this.turnTotal = 0;
-  this.totalScore = 0;
-  this.playerTurn = false;
 }
 
 // DISPLAY FUNCTION //
